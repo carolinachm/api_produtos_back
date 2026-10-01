@@ -1,5 +1,4 @@
-package router
-
+package handler
 import (
 	"api_produtos/service"
 	"net/http"
@@ -7,19 +6,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// ProdutoRotas — registra todas as rotas de produto
-func ProdutoRotas(router *gin.Engine) {
-	router.GET("/produtos", listarTodosProdutos)
-	router.POST("/produtos", cadastrarProduto)
-	router.PUT("/produtos/:codigo", alterarProduto)
-	router.DELETE("/produtos/:codigo", removerProduto)
-}
-
-func listarTodosProdutos(c *gin.Context) {
+func ListarTodosProdutos(c *gin.Context) {
 	c.JSON(http.StatusOK, service.ListarTodosProdutos())
 }
 
-func cadastrarProduto(c *gin.Context) {
+func CadastrarProduto(c *gin.Context) {
 	novoProduto, status, err := service.CadastrarProduto(c)
 	if err != nil {
 		c.JSON(status, gin.H{"erro": err.Error()})
@@ -31,7 +22,7 @@ func cadastrarProduto(c *gin.Context) {
 	})
 }
 
-func alterarProduto(c *gin.Context) {
+func AlterarProduto(c *gin.Context) {
 	codigo := c.Param("codigo")
 	produtoAtualizado, status, err := service.AlterarProduto(codigo, c)
 	if err != nil {
@@ -44,7 +35,7 @@ func alterarProduto(c *gin.Context) {
 	})
 }
 
-func removerProduto(c *gin.Context) {
+func RemoverProduto(c *gin.Context) {
 	codigo := c.Param("codigo")
 	status, err := service.RemoverProduto(codigo)
 	if err != nil {

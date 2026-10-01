@@ -9,6 +9,8 @@ import (
 )
 
 func main() {
+
+	
 	// Limpar e recriar pasta uploads
 	os.RemoveAll("./uploads")
 	os.MkdirAll("./uploads", 0755)
@@ -29,6 +31,7 @@ func main() {
 
 	// Registrar rotas de produto
 	router.ProdutoRotas(r)
+	router.ClienteRouter(r)
 
 	// Iniciar servidor
 	r.Run(":8080")
